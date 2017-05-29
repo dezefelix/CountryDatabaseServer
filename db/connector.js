@@ -3,13 +3,14 @@
  */
 
 var mysql = require('mysql');
-var config = require('../../../nodejs/CountryDatabaseServer/config.json');
+var config = require('./../config.json');
 
 var connector = mysql.createPool({
-    host : config.dbHost,
-    user : config.dbUsername,
-    pass : config.dbPassword,
-    db : config.dbName
-    });
+    connectionLimit: config.dbConnectionLimit,
+    host: config.dbHost,
+    user: config.dbUsername,
+    pass: config.dbPassword,
+    db: config.dbName
+});
 
 module.exports = connector;

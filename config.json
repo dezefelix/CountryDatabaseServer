@@ -1,12 +1,11 @@
 {
-  //for local testing
   "webPort" : 8080,
-  //authentication key
+
   "secretKey" : "k3iIFJ3a0fjzl3ijtJFH90",
-  //database values
+
+  "dbConnectionLimit" : 10,
   "dbHost" : "us-cdbr-iron-east-03.cleardb.net",
   "dbUsername" : "b68d34c93841c4",
   "dbPassword" : "b2b842e0",
-  "dbName" : "heroku_7ac3354f1a0d4c2",
-  "dbConnectionLimit" : 10
+  "dbName" : "heroku_7ac3354f1a0d4c2"
 }
