@@ -1,4 +1,6 @@
 {
+  //for local testing
+  "webPort" : 8080,
   //authentication key
   "secretKey" : "k3iIFJ3a0fjzl3ijtJFH90",
   //database values
