@@ -59,7 +59,6 @@ router.get('/:username?', function (req, res) {
                 console.log(err);
             } else {
                 res.status(200).json(rows);
-
             }
         })
     })

@@ -37,26 +37,27 @@ var pool = require('../db/connector.js');
 // });
 
 //select all countries or one country by name
-router.get('/countries/:name?', function (req, res) {
+router.get('/:countryName?', function (req, res) {
 
-    var countryName = req.params.name || '';
+    var countryName = req.params.countryName;
     var query = "";
 
     if (countryName) {
-        query = "SELECT * FROM country WHERE name = '" + countryName + "';"
+        query = "SELECT * FROM country WHERE name = '" + countryName + "';";
     } else {
         query = "SELECT * FROM country";
     }
 
     pool.getConnection(function (err, connection) {
-        connection.query(query, function (err, rows) {
+        connection.query(query, function(err, rows) {
             connection.release();
             if (err) {
-                throw err
+                console.log(err);
+            } else {
+                res.status(200).json(rows);
             }
-            res.status(200).json(rows);
-        });
-    });
+        })
+    })
 });
 
 //if invalid URL, show 404
