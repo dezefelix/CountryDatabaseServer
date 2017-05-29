@@ -29,6 +29,7 @@ router.route('/login').post(function (req, res) {
 
                 console.log("Query result: " + rows[0].Username + " | " + rows[0].Password);
 
+                //get user data if username and password are correct
                 result = rows.filter(function (user) {
                     if (user.Username === username && user.Password === password) {
                         return (user);
