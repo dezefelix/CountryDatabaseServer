@@ -1,4 +1,4 @@
-/**
+/**e
  * Created by Felix on 29-5-2017.
  */
 
@@ -9,8 +9,8 @@ var connector = mysql.createPool({
     connectionLimit: config.dbConnectionLimit,
     host: config.dbHost,
     user: config.dbUsername,
-    pass: config.dbPassword,
-    db: config.dbName
+    password: config.dbPassword,
+    database: config.dbName
 });
 
 module.exports = connector;

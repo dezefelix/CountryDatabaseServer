@@ -7,7 +7,7 @@ var express = require('express');
 var router = express.Router();
 
 //my modules
-var pool = require('../db/connector.js');
+var pool = require('../db/connector');
 
 router.route('/login').post(function (req, res) {
 
@@ -54,6 +54,7 @@ router.get('/:username?', function (req, res) {
 
     pool.getConnection(function (err, connection) {
         connection.query(query, function(err, rows) {
+            connection.release();
             if (err) {
                 console.log(err);
             } else {
