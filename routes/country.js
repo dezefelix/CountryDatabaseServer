@@ -64,6 +64,45 @@ router.get('/:countryName?', function (req, res) {
     })
 });
 
+//update country values
+router.put('/update/:codeIdentifier/:code/:name/:continent/:region/:localName/:surfaceArea/:population/:lifeExpectancy', function (req, res) {
+
+    var codeIdentifier = req.params.codeIdentifier;
+    var code = req.params.code;
+    var name = req.params.name;
+    var continent = req.params.continent;
+    var region = req.params.region;
+    var localName = req.params.localName;
+    var surfaceArea = req.params.surfaceArea;
+    var population = req.params.population;
+    var lifeExpectancy = req.params.lifeExpectancy;
+
+    var query = "UPDATE country " +
+        "SET code = '" + code + "', " +
+        "name = '" + name + "', " +
+        "continent = '" + continent + "', " +
+        "region = '" + region + "', " +
+        "localName = '" + localName + "', " +
+        "surfaceArea = " + surfaceArea + ", " +
+        "population = " + population + ", " +
+        "lifeExpectancy = " + lifeExpectancy +
+        " WHERE code = '" + codeIdentifier + "';";
+
+    console.log(query);
+
+    pool.getConnection(function (err, connection) {
+        connection.query(query, function (err, rows, fields) {
+            if (err) {
+                throw err;
+            } else {
+                res.status(200).json(rows);
+                console.log('Country with code ' + codeIdentifier + ' has been updated.');
+            }
+        });
+    });
+});
+
+
 //delete country (by country code)
 router.delete('/delete/:code', function (req, res) {
 
@@ -77,7 +116,7 @@ router.delete('/delete/:code', function (req, res) {
                 throw err;
             } else {
                 res.status(200).json(rows);
-                console.log('Country with code ' + code + ' has been deleted from the database.');
+                console.log('Country with code "' + code + '" has been deleted from the database.');
             }
         });
     });
