@@ -65,7 +65,7 @@ router.get('/:countryName?', function (req, res) {
 });
 
 //delete country (by country code)
-router.delete('/countries/delete/:code', function (req, res) {
+router.delete('/delete/:code', function (req, res) {
 
     var code = req.params.code;
 
