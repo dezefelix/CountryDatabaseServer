@@ -49,14 +49,18 @@ router.get('/:countryName?', function (req, res) {
     }
 
     pool.getConnection(function (err, connection) {
-        connection.query(query, function(err, rows) {
-            connection.release();
-            if (err) {
-                console.log(err);
-            } else {
-                res.status(200).json(rows);
-            }
-        })
+        if (err) {
+            console.log(err);
+        } else {
+            connection.query(query, function (err, rows) {
+                connection.release();
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.status(200).json({"countries": rows});
+                }
+            })
+        }
     })
 });
 
