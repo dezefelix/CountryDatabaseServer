@@ -64,6 +64,25 @@ router.get('/:countryName?', function (req, res) {
     })
 });
 
+//delete country (by country code)
+router.delete('/countries/delete/:code', function (req, res) {
+
+    var code = req.params.code;
+
+    var query = 'DELETE FROM `country` WHERE `country`.`code` = "' + code + '";';
+
+    pool.getConnection(function (err, connection) {
+        connection.query(query, function (err, rows) {
+            if (err) {
+                throw err;
+            } else {
+                res.status(200).json(rows);
+                console.log('Country with code ' + code + ' has been deleted from the database.');
+            }
+        });
+    });
+});
+
 //if invalid URL, show 404
 router.get('*', function (request, response) {
     response.status(404);
