@@ -22,9 +22,6 @@ app.set('SECRET_KEY', config.secretKey);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-//get application port
-var port = process.env.PORT || app.get('PORT');
-
 //routes
 app.use('/api/country', require('./routes/country.js'));
 app.use('/api/user', require('./routes/user.js'));
@@ -39,11 +36,13 @@ app.all('*', function (req, res, next) {
     next();
 });
 
-
 app.all('*', function(req, res) {
     res.contentType('application/json');
     res.json({"werkt het?": "true"});
 });
+
+//get application port
+var port = process.env.PORT || app.get('PORT');
 
 //run application
 app.listen(port, function () {

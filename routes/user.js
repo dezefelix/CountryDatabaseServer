@@ -10,7 +10,7 @@ var router = express.Router();
 var pool = require('../db/connector');
 var auth = require('../auth/authentication');
 
-//token required everywhere, but at /login
+//require token on all endpoints, but at /login
 router.all(new RegExp("[^(\/login)]"), function (req, res, next) {
 
     console.log("VALIDATE TOKEN");
