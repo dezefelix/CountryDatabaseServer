@@ -1,7 +1,7 @@
 {
   "webPort" : 8080,
 
-  "secretKey" : "k3iIFJ3a0fjzl3ijtJFH90",
+  "secretKey" : "k3iIFJ3a0fF32Fjzl3ijtJFH9jhi0",
 
   "dbConnectionLimit" : 10,
   "dbHost" : "us-cdbr-iron-east-03.cleardb.net",

@@ -8,7 +8,26 @@ var router = express.Router();
 
 //my modules
 var pool = require('../db/connector');
+var auth = require('../auth/authentication');
 
+//token required everywhere, but at /login
+router.all(new RegExp("[^(\/login)]"), function (req, res, next) {
+
+    console.log("VALIDATE TOKEN");
+
+    var token = (req.header('X-Access-Token')) || '';
+
+    auth.decodeToken(token, function (err, payload) {
+        if (err) {
+            console.log('Error handler: ' + err.message);
+            res.status((err.status || 401 )).json({error: new Error("Not authorised").message});
+        } else {
+            next();
+        }
+    });
+});
+
+//login feature using post
 router.route('/login').post(function (req, res) {
 
     //get user input
@@ -34,13 +53,22 @@ router.route('/login').post(function (req, res) {
                     if (user.Username === username && user.Password === password) {
                         return (user);
                     }
-                })
+                });
+
+                console.log("result: " + JSON.stringify(result[0]));
+
+                if (result[0]) {
+                    res.status(200).json({"token": auth.encodeToken(username), "username": username});
+                } else {
+                    res.status(401).json({"error": "Credentials not valid. Laters."})
+                }
 
             })
         }
     })
 });
 
+//search user by username
 router.get('/:username?', function (req, res) {
 
     var username = req.params.username;
@@ -53,7 +81,7 @@ router.get('/:username?', function (req, res) {
     }
 
     pool.getConnection(function (err, connection) {
-        connection.query(query, function(err, rows) {
+        connection.query(query, function (err, rows) {
             connection.release();
             if (err) {
                 console.log(err);

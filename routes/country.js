@@ -31,7 +31,6 @@ var pool = require('../db/connector.js');
 //                     return (user);
 //                 }
 //             })
-//
 //         });
 //     })
 // });
