@@ -9,32 +9,6 @@ var router = express.Router();
 //my modules
 var pool = require('../db/connector.js');
 
-// router.route('/login').post(function (req, res) {
-//
-//     //get user input
-//     var username = req.body.username || '';
-//     var password = req.body.password || '';
-//     var query = "SELECT * FROM user where username = '" + username + "';";
-//     var result = '';
-//
-//     console.log("User input: " + username + " | " + password);
-//
-//     //get db value
-//     pool.getConnection(function (err, connection) {
-//         connection.query(query, function (err, rows) {
-//             connection.release();
-//
-//             console.log("Query result: " + rows[0].Username + " | " + rows[0].Password);
-//
-//             result = rows.filter(function (user) {
-//                 if (user.Username === username && user.Password === password) {
-//                     return (user);
-//                 }
-//             })
-//         });
-//     })
-// });
-
 //select all countries or one country by name
 router.get('/:countryName?', function (req, res) {
 
