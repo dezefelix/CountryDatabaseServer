@@ -64,6 +64,44 @@ router.get('/:countryName?', function (req, res) {
     })
 });
 
+//create new country
+router.post('/create/:code/:name/:continent/:region/:localName/:surfaceArea/:population/:lifeExpectancy', function (req, res) {
+
+    var code = req.params.code;
+    var name = req.params.name;
+    var continent = req.params.continent;
+    var region = req.params.region;
+    var localName = req.params.localName;
+    var surfaceArea = req.params.surfaceArea;
+    var population = req.params.population;
+    var lifeExpectancy = req.params.lifeExpectancy;
+
+    var query = "INSERT INTO country (code, name, continent, region, localName, surfaceArea, population, lifeExpectancy) " +
+        "VALUES (" +
+        "'" + code + "', " +
+        "'" + name + "', " +
+        "'" + continent + "', " +
+        "'" + region + "', " +
+        "'" + localName + "', " +
+        + surfaceArea + ", " +
+        + population + ", " +
+        + lifeExpectancy +
+        ");";
+
+    console.log(query);
+
+    pool.getConnection(function (err, connection) {
+        connection.query(query, function (err, rows) {
+            if (err) {
+                throw err;
+            } else {
+                res.status(200).json(rows);
+                console.log('New country with code "' + code + '" has been created.');
+            }
+        });
+    });
+});
+
 //update country values
 router.put('/update/:codeIdentifier/:code/:name/:continent/:region/:localName/:surfaceArea/:population/:lifeExpectancy', function (req, res) {
 
@@ -91,7 +129,7 @@ router.put('/update/:codeIdentifier/:code/:name/:continent/:region/:localName/:s
     console.log(query);
 
     pool.getConnection(function (err, connection) {
-        connection.query(query, function (err, rows, fields) {
+        connection.query(query, function (err, rows) {
             if (err) {
                 throw err;
             } else {
